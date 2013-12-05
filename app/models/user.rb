@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
 	has_secure_password
 	before_save { 
 		email.downcase! 
-		create_remember_token
 	}
 
 	validates :name, presence: true, length: { maximum: 50 }
