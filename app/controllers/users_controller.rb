@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Holy Chickens! You made it!"
+      sign_in @user
+      flash[:success] = "Holy Chickens! Welcome!"
       redirect_to @user
     else
       render 'new'
@@ -27,4 +28,9 @@ class UsersController < ApplicationController
     def create_remember_token
        self.remember_token = SecureRandom.urlsafe_base64
     end
-end
+
+    def destroy
+      sign_out
+      redirect_to root_url
+    end
+  end
